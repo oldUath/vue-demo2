@@ -12,42 +12,43 @@ new Vue({
   el:"#app",
   data(){
     return {
-      user:{
-        email:"dong@qq.com",
-        nickname:"oldUath",
-        phone:"12812345678"
-      },
       users:[
         createUser('董阁','男'),
         createUser('老黄','女'),
         createUser('老李','男')
       ],
-      displayUsers:[]
-    }
+      gender:""
+    };
   },
-  //创建的时候就赋值
-  created() {
-    this.displayUsers=this.users
+  //计算属性
+  computed:{
+    displayUsers(){
+      const {users,gender}=this;
+      if(gender === ""){
+        return users;
+      }else if(gender ==='male'){
+        return users.filter(u=>u.gender ==='男');
+      }else if(gender === 'female'){
+        return users.filter(u=>u.gender ==='女');
+      }else{
+        return 0
+      }
+    }
   },
   methods:{
     showMale(){
       //filter是筛选，不会修改原数组会创建一个新的
-      this.displayUsers = this.users.filter(u=>u.gender === '男')
+      this.gender = 'male'
     },
     showFemale(){
-      this.displayUsers = this.users.filter(u=>u.gender === '女')
+      this.gender = 'female'
+
     },
     showAll(){
-      this.displayUsers = this.users
+      this.gender = ''
     }
   },
-  //计算属性
-  computed:{
-    displayName(){
-      const user=this.user
-      return user.nickname ||user.phone||user.email
-    }
-  },
+
   template:`
       <div>
         <div>
