@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    App.vue现有{{total}}
+    <hr>
+<!--    传给子组件一个money值,v-on是监听子组件的update:money事件，$event获取子组件事件的结果-->
+<!--    <Child :money="total" v-on:update:money="total = $event" />-->
+    <Child :money.sync="total"/>
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Child from './Child.vue'
 export default {
-  name: 'App',
+  data(){
+    return { total:10000}
+  },
+
   components: {
-    HelloWorld
+    Child:Child
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app {
+  border:3px solid #ff1500;
+  padding:10px;
 }
 </style>
